@@ -1,0 +1,14 @@
+
+% "Canon des ateliers" Ordinary printing A5
+% \usepackage[paperheight=21cm, paperwidth=14.85cm, textheight=16.55cm, textwidth=11.14cm, marginratio={4:6,5:7},bindingoffset=8mm]{geometry}
+\usepackage[paperheight=21cm, paperwidth=14.85cm, textheight=18cm, textwidth=11.14cm, marginratio={4:6,5:7},bindingoffset=20mm]{geometry}
+\usepackage{ifthen}
+
+\newcommand{\imagewidth}{\linewidth}
+
+\newboolean{A4only}
+\setboolean{A4only}{false}
+\newboolean{A5only}
+\setboolean{A5only}{true}
+\newboolean{Kindleonly}
+\setboolean{Kindleonly}{false}

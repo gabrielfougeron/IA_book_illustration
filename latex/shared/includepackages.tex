@@ -1,0 +1,297 @@
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{hyphsubst}
+\usepackage[french]{babel}
+\usepackage[protrusion=true, expansion=true, tracking=false, kerning=false, spacing=false, babel=true]{microtype}
+\usepackage[normalem]{ulem}
+\usepackage{tabularray}
+\usepackage{graphicx}
+\usepackage[all]{genealogytree}
+\gtrset{language=french}
+
+\usepackage{calc}
+\usepackage{caption}
+\usepackage{xargs}
+\usepackage{xcolor}
+\usepackage{pgfkeys}
+\usepackage{hyperref}
+% \usepackage[ocgcolorlinks]{hyperref}
+% \usepackage[ocgcolorlinks]{ocgx2}[2017/03/30]
+\usepackage[ocgcolorlinks]{ocgx2}
+\usepackage{amsmath,amssymb}
+\usepackage{musixtex}
+\input musixlyr
+
+\usepackage{tikz}
+\usepackage{tikzscale}
+\usetikzlibrary{patterns,arrows.meta}
+
+\usepackage[perpage]{footmisc}
+\usepackage{fancyhdr}
+\usepackage{fontawesome}
+\usepackage{ifdraft}
+\usepackage{pdflscape}
+\usepackage{rotating}
+\usepackage{floatpag}
+\usepackage{afterpage}
+\usepackage{scrextend}
+\usepackage{ulem}
+\usepackage{xfrac}
+\usepackage{cancel}
+\usepackage{tocloft}
+\usepackage{textgreek}
+% 
+% \definecolor{wallblue}{RGB}{20, 45, 125}
+% \definecolor{penpink}{RGB}{185, 25, 105}
+
+\definecolor{wallblue}{RGB}{0, 0, 0}
+\definecolor{penpink}{RGB}{0, 0, 0}
+
+\definecolor{crayonorange}{RGB}{210, 118, 110}
+\definecolor{crayonbleu}{RGB}{120, 158, 193}
+
+\ifthenelse{\boolean{Kindleonly}}{\pagestyle{empty}\pagenumbering{gobble}}{}
+
+\cftsetindents{section}{0em}{2em}
+\cftsetindents{subsection}{0em}{2em}
+
+\renewcommand\cfttoctitlefont{\hfill\Large\bfseries}
+\renewcommand\cftaftertoctitle{\hfill\mbox{}}
+
+\setcounter{tocdepth}{2}
+
+\fancypagestyle{plain}{%
+    \fancyhf{}% clear all headers and footers
+    \renewcommand{\headrulewidth}{0pt}%
+    \renewcommand{\footrulewidth}{0pt}%
+}
+
+\fancypagestyle{fancy}{%
+    \fancyhead{} % clear all header fields
+    % \fancyhead[RO,LE]{Some text}
+    \fancyfoot{} % clear all footer fields
+    \fancyfoot[LE,RO]{\thepage}
+    % \fancyfoot[LO,CE]{From: K. Grant}
+    % \fancyfoot[CO,RE]{To: Dean A. Smith}
+    \renewcommand{\headrulewidth}{0pt}
+    \renewcommand{\footrulewidth}{0pt}
+}
+
+\pagestyle{fancy}
+\floatpagestyle{empty}
+
+\definecolor{linkblue}{RGB}{72, 89, 134}
+
+\hypersetup{
+    bookmarksnumbered,
+    colorlinks,
+    citecolor=linkblue,
+    filecolor=linkblue,
+    linkcolor=linkblue,
+    urlcolor=linkblue
+}
+% 
+\newcommand{\uchapter}[1]{%
+    \clearpage
+    \thispagestyle{plain}
+    \chapter*{#1}
+    \addcontentsline{toc}{chapter}{\protect\numberline{}#1}
+}
+
+\newcommand{\usection}[1]{\section*{#1}
+\addcontentsline{toc}{section}{\protect\numberline{}#1}}
+
+\newcommand{\usubsection}[1]{\subsection*{#1}
+\addcontentsline{toc}{subsection}{\protect\numberline{}#1}}
+
+\newcommand{\usubsubsection}[1]{\subsubsection*{#1}
+\addcontentsline{toc}{subsubsection}{\protect\numberline{}#1}}
+
+\newcommand{\texthline}[0]{\noindent\rule[0.5ex]{\linewidth}{1pt}}
+
+\newcommand{\cleartoleftpage}[0]{%
+  \clearpage
+  \ifodd\value{page}\hbox{}\newpage\fi
+}
+
+\makeatletter
+\newenvironment{rotatepage}
+{\ifodd\value{page}\global\pdfpageattr\expandafter{\the\pdfpageattr/Rotate 90}\else\global\pdfpageattr\expandafter{\the\pdfpageattr/Rotate 270}\fi}%
+{\afterpage{\global\pdfpageattr\expandafter{\the\pdfpageattr/Rotate 0}}}%
+\makeatother% 
+
+\newcommand{\negphantom}[1]{\settowidth{\dimen0}{#1}\hspace*{-\dimen0}}
+\newcommand{\textdbl}[2]{#1\negphantom{#1}#2}
+
+\newcommand{\lowerleftbox}[1]{\noindent\SetTblrOuter{expand=\expanded}\SetTblrInner{rowsep=0pt}\begin{tblr}[m]{@{}l@{}|}#1~\\\hline\end{tblr}}
+\newcommand{\hlleftbox}[1]{\noindent\SetTblrOuter{expand=\expanded}\SetTblrInner{rowsep=0pt}\begin{tblr}[m]{@{}l@{}|}\hline#1~\\\hline\end{tblr}}
+
+\newcommand{\lbrdash}{}
+\newcommand{\rotatesig}[1]{\rotatebox{20}{#1}}
+
+\makeatletter
+\newcommand*{\romnum}[1]{\expandafter\@slowromancap\romannumeral #1@}
+\makeatother
+
+% Superscript Uppercase H
+\newcommand{\suh}{\textsuperscript{H}}
+
+
+\makeatletter
+\def\pgfkeysifempty#1{%
+    \if\relax\detokenize\expandafter\expandafter\expandafter\expandafter\expandafter\expandafter\expandafter{\pgfkeysvalueof{#1}}\relax
+        \expandafter\pgfkeys@firstoftwo
+    \else
+        \expandafter\pgfkeys@secondoftwo
+    \fi}
+\makeatother
+
+\pgfkeys{
+    /letter/.cd, % family
+    headempty/.initial = {},
+    topempty/.initial = {},
+    botempty/.initial = {},
+    headleft/.initial = {},
+    headright/.initial = {},
+    greeting/.initial = {},
+    signature/.initial = {},
+    body/.initial = {},
+    postscriptum/.initial = {},
+    salutation/.initial = {},
+    reception/.initial = {},
+    notexthline/.initial = {no line},
+}
+
+\newcommand{\letterheadleft}[1]{\pgfkeys{/letter/headleft = {#1}}\pgfkeys{/letter/headempty = {false}}\pgfkeys{/letter/topempty = {false}}}
+\newcommand{\letterheadright}[1]{\pgfkeys{/letter/headright = {#1}}\pgfkeys{/letter/headempty = {false}}\pgfkeys{/letter/topempty = {false}}}
+\newcommand{\letterreception}[1]{\pgfkeys{/letter/reception = {#1}}\pgfkeys{/letter/topempty = {false}}}
+\newcommand{\lettergreeting}[1]{\pgfkeys{/letter/greeting = {#1}}\pgfkeys{/letter/topempty = {false}}}
+\newcommand{\letterbody}[1]{\pgfkeys{/letter/body = {#1}}}
+\newcommand{\lettersalutation}[1]{\pgfkeys{/letter/salutation = {#1}}\pgfkeys{/letter/botempty = {false}}}
+\newcommand{\lettersignature}[1]{\pgfkeys{/letter/signature = {#1}}\pgfkeys{/letter/botempty = {false}}}
+\newcommand{\letterps}[1]{\pgfkeys{/letter/postscriptum = {#1}}\pgfkeys{/letter/botempty = {false}}}
+\newcommand{\letternoline}{\pgfkeys{/letter/notexthline = {no line}}}
+
+\newcommand{\letterloc}[1]{\letterheadleft{#1}}
+\newcommand{\letterdate}[1]{\letterheadright{#1}}
+
+\newenvironment{letter}
+{}
+{\ifthenelse{\boolean{outputlettertext}}{\noindent%
+\pgfkeysifempty{/letter/headempty}{}{\par\noindent\block{\pgfkeysvalueof{/letter/headleft}}\hfill\blockr{\pgfkeysvalueof{/letter/headright}}\\~\\}%
+\pgfkeysifempty{/letter/reception}{}{\par\noindent\pgfkeysvalueof{/letter/reception}\\}%
+\pgfkeysifempty{/letter/greeting}{}{\par\hspace*{0.2\textwidth}\pgfkeysvalueof{/letter/greeting}\\}%
+% \pgfkeysifempty{/letter/body}{}{\pgfkeysifempty{/letter/topempty}{}{\par\indent}\pgfkeysvalueof{/letter/body}\pgfkeysifempty{/letter/botempty}{}{\\}}%
+\pgfkeysifempty{/letter/body}{}{\par\pgfkeysvalueof{/letter/body}\pgfkeysifempty{/letter/botempty}{}{\\}}%
+% \pgfkeysifempty{/letter/body}{}{\par\pgfkeysvalueof{/letter/body}\pgfkeysifempty{/letter/botempty}{}{\\}}%
+\pgfkeysifempty{/letter/salutation}{}{\par\hspace*{0.1\textwidth}\pgfkeysvalueof{/letter/salutation}\\}%
+\pgfkeysifempty{/letter/signature}{}{\par\hfill\pgfkeysvalueof{/letter/signature}\hspace*{0.1\textwidth}\\}%
+\pgfkeysifempty{/letter/postscriptum}{}{\par\noindent\pgfkeysvalueof{/letter/postscriptum}\\}%
+\pgfkeysifempty{/letter/notexthline}{\par\texthline\\\par}{}%
+}{}}
+
+% Usage of letter environment:
+
+% \begin{letter}
+%     \letterheadleft{}
+%     \letterheadright{}
+%     \letterreception{}
+%     \lettergreeting{}
+%     \letterbody{%
+%         
+%     }
+%     \lettersalutation{}
+%     \lettersignature{}
+%     \letterps{}
+% \end{letter}
+
+\newcommand{\kindlesmall}{\ifthenelse{\boolean{Kindleonly}}{\footnotesize}{\normalsize}}
+
+\newboolean{outputlettertext}
+\setboolean{outputlettertext}{true}
+\newboolean{outputletterimg}
+\setboolean{outputletterimg}{true}
+\newboolean{addcontextnotes}
+\setboolean{addcontextnotes}{true}
+
+\newcommand{\noimg}[1]{\ifthenelse{\boolean{outputletterimg}}{}{#1}}
+\newcommand{\withimg}[1]{\ifthenelse{\boolean{outputletterimg}}{#1}{}}
+
+\newcommand{\optionnallettertext}[1]{\ifthenelse{\boolean{outputlettertext}}{#1}{}}
+\newcommand{\optionnalletterimg}[1]{\ifthenelse{\boolean{outputletterimg}}{#1}{}}
+
+\newcommand{\contextnote}[1]{\ifthenelse{\boolean{addcontextnotes}}{\footnote{#1}}{}}
+\newcommand{\ndtnote}[1]{\footnote{#1}}
+
+
+\newcommand{\illisible}{\ifdraft{\remarque{\Warning}\textcolor{red}{xxx}}{}}
+\newcommand{\Illisible}{\ifdraft{\remarque{\Warning}\textcolor{red}{XXX}}{}}
+
+% \newcommand{\unsure}[1]{\ifdraft{\remarque{\Warning}\textcolor{red}{#1}}{#1}}
+\newcommand{\unsure}[1]{\remarque{\Warning}\textcolor{red}{#1}}
+
+% \newcommand{\block}[1]{\SetTblrOuter{expand=\expanded}\SetTblrInner{rowsep=0pt}\begin{tblr}[m]{@{}l@{}}\expanded{#1}\end{tblr}}
+\newcommand{\block}[1]{\SetTblrOuter{expand=\expanded}\SetTblrInner{rowsep=0pt}\begin{tblr}[t]{@{}l@{}}#1\end{tblr}}
+\newcommand{\blockr}[1]{\SetTblrOuter{expand=\expanded}\SetTblrInner{rowsep=0pt}\begin{tblr}[t]{@{}r@{}}#1\end{tblr}}
+\newcommand{\blockc}[1]{\SetTblrOuter{expand=\expanded}\SetTblrInner{rowsep=0pt}\begin{tblr}[t]{@{}c@{}}#1\end{tblr}}
+\newcommand{\blockcm}[1]{\SetTblrOuter{expand=\expanded}\SetTblrInner{rowsep=0pt}\begin{tblr}[m]{@{}c@{}}#1\end{tblr}}
+
+\newcommand{\orateur}[1]{\textbf{\textit{#1}} - }
+
+\newlength{\parindentsave}
+\setlength{\parindentsave}{\parindent}
+
+\newlength{\leftlength}
+\setlength{\leftlength}{\dimexpr\hoffset + 1in + \evensidemargin\relax}
+
+\newlength{\rightlength}
+\setlength{\rightlength}{\dimexpr\hoffset + 1in + \oddsidemargin\relax}
+
+\newlength{\minmargin}
+\setlength{\minmargin}{\minof{\leftlength}{\rightlength}}
+
+\newlength{\narratoroffset}
+\setlength{\narratoroffset}{\minof{2\parindentsave}{0.5\minmargin}}
+
+\newlength{\narratorwidth}
+\setlength{\narratorwidth}{\narratoroffset + \textwidth}
+
+\newcommand{\narrateur}[1]{%
+    \vspace{0.25\baselineskip}%
+    \noindent%
+    \hspace*{-\narratoroffset}%
+    {\SetTblrInner{rowsep=0pt}\begin{tblr}{width=\narratorwidth, colspec={@{}X[j,m]@{}}}\hspace*{\parindentsave}\ignorespaces\textit{#1}\end{tblr}}%
+    \vspace{0.25\baselineskip}%
+}
+
+% Tabularray templates
+
+\DefTblrTemplate{contfoot}{silent}{}
+\DefTblrTemplate{conthead}{silent}{}
+\DefTblrTemplate{caption}{silent}{}
+\DefTblrTemplate{head}{silent}{}
+
+\newcommand{\remarque}[1]{\marginpar[\textcolor{red}{#1}]{\textcolor{red}{#1}}}
+
+\setlength{\marginparwidth}{0.5cm}
+\setlength{\marginparsep}{0.5cm}
+
+\newcommand\Warning{%
+    \textcolor{red}{%
+        \makebox[1.4em][c]{%
+        \makebox[0pt][c]{\raisebox{.1em}{\small!}}%
+        \makebox[0pt][c]{\Large$\bigtriangleup$}}%
+    }%
+}
+
+\newcommand{\textttdbludegree}{\textsuperscript{\raisebox{0.055em}{\scalebox{0.73}{\underline{\underline{\textbf{\textopenbullet}}}}}}}
+\newcommand{\dbludegree}{\texttt{\textttdbludegree}}
+
+\newcommand{\image}[1][ThisNameDoesNotExist]{\IfFileExists{#1}{%
+\begin{figure}[p]
+\centering%
+\includegraphics[width=\imagewidth]{#1}%
+\captionsetup{labelformat=empty}%
+\end{figure}%
+% }{\error}}
+}{}}

@@ -1,0 +1,7 @@
+**/build/*
+**/auto_generated/*
+**/__pycache__/*
+*.pdf
+!doc/**
+**_thinking*
+output/*
